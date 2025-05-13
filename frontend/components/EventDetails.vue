@@ -116,23 +116,25 @@
           
           <!-- Comment form -->
           <div class="mb-4">
-            <textarea
-              v-model="newComment"
-              placeholder="Оставьте комментарий..."
-              :class="['w-full p-2 rounded-lg resize-none transition-all', 
-                     isDarkMode ? 'bg-[#3A3A50] text-white' : 'bg-gray-100 text-gray-800']"
-              rows="2"
-            ></textarea>
-            <div class="flex justify-end mt-2">
-              <button 
-                @click="addComment"
-                :disabled="!newComment.trim()"
-                :class="['px-4 py-2 rounded-lg text-sm font-medium transition-all',
-                        newComment.trim() ? 'bg-[#6C63FF] text-white' : 'bg-gray-300 text-gray-500']"
-              >
-                Отправить
-              </button>
-            </div>
+            <form @submit.prevent="addComment">
+              <textarea
+                v-model="newComment"
+                placeholder="Оставьте комментарий..."
+                :class="['w-full p-2 rounded-lg resize-none transition-all', 
+                       isDarkMode ? 'bg-[#3A3A50] text-white' : 'bg-gray-100 text-gray-800']"
+                rows="2"
+              ></textarea>
+              <div class="flex justify-end mt-2">
+                <button 
+                  type="submit"
+                  :disabled="!newComment.trim()"
+                  :class="['px-4 py-2 rounded-lg text-sm font-medium transition-all',
+                          newComment.trim() ? 'bg-[#6C63FF] text-white' : 'bg-gray-300 text-gray-500']"
+                >
+                  Отправить
+                </button>
+              </div>
+            </form>
           </div>
           
           <!-- Comments list -->
@@ -437,39 +439,42 @@ const setRating = (value) => {
 const addComment = () => {
   if (!props.event?.id || !newComment.trim()) return
   
-  // Simulate server request
-  showNotification.value = true
-  notificationMessage.value = 'Отправка комментария...'
+  // Create the comment
+  const comment = {
+    text: newComment.trim(),
+    author: 'Вы',
+    date: new Date().toISOString()
+  }
   
-  setTimeout(() => {
-    const comment = {
-      text: newComment.trim(),
-      author: 'Вы',
-      date: new Date().toISOString()
+  // Add to comments array
+  comments.value.unshift(comment)
+  newComment.value = ''
+  
+  // Save to localStorage
+  if (process.client) {
+    try {
+      const savedComments = localStorage.getItem('eventComments')
+      const allComments = savedComments ? JSON.parse(savedComments) : {}
+      
+      allComments[props.event.id] = comments.value
+      localStorage.setItem('eventComments', JSON.stringify(allComments))
+      
+      // Show success notification
+      showNotification.value = true
+      notificationMessage.value = 'Комментарий добавлен'
+      
+      setTimeout(() => {
+        showNotification.value = false
+      }, 2000)
+    } catch (e) {
+      console.error('Error saving comment', e)
+      showNotification.value = true
+      notificationMessage.value = 'Ошибка при сохранении комментария'
+      setTimeout(() => {
+        showNotification.value = false
+      }, 2000)
     }
-    
-    comments.value.unshift(comment)
-    newComment.value = ''
-    
-    if (process.client) {
-      try {
-        const savedComments = localStorage.getItem('eventComments')
-        const allComments = savedComments ? JSON.parse(savedComments) : {}
-        
-        allComments[props.event.id] = comments.value
-        localStorage.setItem('eventComments', JSON.stringify(allComments))
-        
-        notificationMessage.value = 'Комментарий добавлен'
-      } catch (e) {
-        console.error('Error saving comment', e)
-        notificationMessage.value = 'Ошибка при сохранении комментария'
-      }
-    }
-    
-    setTimeout(() => {
-      showNotification.value = false
-    }, 2000)
-  }, 1000)
+  }
 }
 
 // Share event in social networks
