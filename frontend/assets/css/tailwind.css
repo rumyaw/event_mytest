@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --dark-blue: #1E2A44;
+  --purple: #6B5B95;
+  --black: #0F1419;
+  --white: #FFFFFF;
+
+  /* Light theme variables */
+  --bg-light: #F5F5F7;
+  --text-light: #1A1A2E;
+  --card-light: #FFFFFF;
+  
+  /* Dark theme variables */
+  --bg-dark: #1E2A44;
+  --text-dark: #FFFFFF;
+  --card-dark: #2A2A40;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+html.dark body {
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+html.light body {
+  background-color: var(--bg-light);
+  color: var(--text-light);
+}
+
+h1, h2, h3 {
+  font-family: 'Orbitron', sans-serif;
+}
+
+.dark-theme {
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+.light-theme {
+  background-color: var(--bg-light);
+  color: var(--text-light); 
+}
+
+.text-accent {
+  color: var(--purple);
+}
+
+.events-section.dark-theme {
+  background-color: rgba(42, 42, 64, 0.7);
+}
+
+.events-section.light-theme {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Add animation for notifications */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-slide {
+  animation: fadeSlideIn 0.3s ease forwards;
+}

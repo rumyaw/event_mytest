@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      backend:
+        condition: service_healthy
+    environment:
+      - NODE_ENV=production
+    networks:
+      - app-network
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend/db/users.db:/app/db/users.db
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/csrf-token"]
+      interval: 30s # Увеличили с 5с до 30с
+      timeout: 3s
+      retries: 5
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: bridge
