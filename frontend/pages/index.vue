@@ -171,76 +171,121 @@ onMounted(() => {
 
 // Генерация тестовых данных
 function generateEvents() {
-  const categories = ['tech', 'music', 'art']
+  const categories = ['tech', 'music', 'art', 'business', 'education', 'gaming', 'science', 'crypto']
   const tags = [
-    ['веб', 'конференция', 'программирование'],
-    ['концерт', 'живая музыка', 'джаз'],
-    ['выставка', 'современное искусство', 'галерея'],
-    ['нетворкинг', 'бизнес', 'стартапы'],
-    ['семинар', 'образование', 'мастер-класс']
+    ['web', 'frontend', 'backend', 'fullstack', 'devops'],
+    ['blockchain', 'crypto', 'nft', 'web3', 'defi'],
+    ['ai', 'machine learning', 'neural networks', 'data science', 'robotics'],
+    ['design', 'ui/ux', 'product', 'графический дизайн', 'motion'],
+    ['mobile', 'ios', 'android', 'react native', 'flutter'],
+    ['business', 'startup', 'инвестиции', 'предпринимательство', 'маркетинг'],
+    ['cybersecurity', 'облачные технологии', 'big data', 'iot', 'архитектура'],
+    ['education', 'курсы', 'карьера', 'менторство', 'soft skills'],
+    ['музыка', 'живые выступления', 'электронная', 'классическая', 'джаз'],
+    ['gaming', 'киберспорт', 'game dev', 'vr/ar', 'метавселенная']
   ]
   
   const locations = [
-    { city: 'Москва', venue: 'Центр "Космос"' },
-    { city: 'Санкт-Петербург', venue: 'Манеж' },
-    { city: 'Казань', venue: 'IT Park' },
-    { city: 'Екатеринбург', venue: 'Ельцин Центр' },
-    { city: 'Новосибирск', venue: 'Технопарк' }
+    { city: 'Москва', venue: 'Цифровой Деловой Центр' },
+    { city: 'Санкт-Петербург', venue: 'Новая Голландия' },
+    { city: 'Казань', venue: 'Смарт-Сити Хаб' },
+    { city: 'Екатеринбург', venue: 'Конгресс-центр "Высоцкий"' },
+    { city: 'Новосибирск', venue: 'Технопарк Академгородка' },
+    { city: 'Сочи', venue: 'Олимпийский медиа-центр' },
+    { city: 'Калининград', venue: 'Куб' },
+    { city: 'Владивосток', venue: 'Океанариум ДВФУ' },
+    { city: 'Нижний Новгород', venue: 'Технопарк "Анкудиновка"' },
+    { city: 'Минск', venue: 'ВЕБ парк' },
+    { city: 'Берлин', venue: 'Station Berlin' },
+    { city: 'Амстердам', venue: 'The Edge' },
+    { city: 'Дубай', venue: 'Museum of the Future' },
+    { city: 'Сингапур', venue: 'Marina Bay Sands' },
+    { city: 'Сан-Франциско', venue: 'Moscone Center' }
   ]
   
   const titles = [
     'DevConf 2023',
-    'Джазовый вечер',
-    'Выставка цифрового искусства',
-    'Нетворкинг для IT-специалистов',
-    'Мастер-класс по UI/UX дизайну',
-    'Киберспортивный турнир',
-    'Конференция по искусственному интеллекту',
-    'Фестиваль электронной музыки'
+    'AI Summit',
+    'Blockchain Forum',
+    'UX/UI Masterclass',
+    'Web3 Conference',
+    'Digital Marketing Forum',
+    'Data Science Day',
+    'JavaScript Meetup',
+    'Startup Pitch Night',
+    'Tech Leadership Summit',
+    'Crypto Expo',
+    'Product Management Workshop',
+    'VR/AR Exhibition',
+    'Mobile Dev Conference',
+    'Cybersecurity Symposium',
+    'Cloud Computing Summit',
+    'Game Developers Meet',
+    'NFT Art Festival',
+    'IoT Conference',
+    'Music Tech Fusion'
   ]
   
   const descriptions = [
-    'Встреча профессионалов индустрии для обсуждения последних тенденций разработки.',
-    'Атмосферный вечер с живой музыкой от лучших музыкантов города.',
-    'Уникальная выставка, сочетающая традиционное и цифровое искусство.',
-    'Возможность найти единомышленников и расширить профессиональные связи.',
-    'Интерактивный мастер-класс с опытными спикерами и практическими упражнениями.'
+    'Глобальная конференция, собирающая лидеров индустрии для обсуждения последних трендов в разработке ПО и инновационных решений.',
+    'Погружение в мир искусственного интеллекта с практическими демонстрациями, кейс-стади и выступлениями от ведущих экспертов области.',
+    'Интенсивный воркшоп по современным технологиям блокчейн с фокусом на практическое применение в бизнесе и финансах.',
+    'Уникальное мероприятие для дизайнеров всех уровней, сочетающее теоретические знания с интерактивными практическими сессиями.',
+    'Форум для обсуждения будущего web3-технологий, децентрализованных приложений и метавселенных в контексте меняющегося цифрового ландшафта.',
+    'Комплексная образовательная программа, охватывающая все аспекты современного цифрового маркетинга от аналитики до многоканального продвижения.',
+    'Специализированное мероприятие для data scientists и аналитиков с глубоким погружением в методы анализа больших данных и машинное обучение.',
+    'Ежемесячная встреча энтузиастов JavaScript для обмена опытом, совместного решения сложных задач и нетворкинга в неформальной обстановке.',
+    'Вечер для стартаперов и инвесторов, где инновационные проекты презентуют свои идеи и бизнес-модели потенциальным партнерам и менторам.',
+    'Серия дискуссионных панелей и мастер-классов для технических руководителей всех уровней по развитию команд и управлению технологическими процессами.'
   ]
 
   // Speakers database
   const speakersDatabase = [
-    { id: 1, name: 'Анна Иванова', position: 'Senior Developer, TechCorp', avatar: 'https://i.pravatar.cc/150?img=1' },
-    { id: 2, name: 'Дмитрий Петров', position: 'CTO, Startup Inc', avatar: 'https://i.pravatar.cc/150?img=2' },
-    { id: 3, name: 'Елена Смирнова', position: 'UX Designer, DesignLab', avatar: 'https://i.pravatar.cc/150?img=3' },
-    { id: 4, name: 'Максим Козлов', position: 'AI Researcher, DataScience', avatar: 'https://i.pravatar.cc/150?img=4' },
-    { id: 5, name: 'Ольга Новикова', position: 'Product Manager, ProductHouse', avatar: 'https://i.pravatar.cc/150?img=5' },
-    { id: 6, name: 'Артем Соколов', position: 'DevOps Engineer, CloudSolutions', avatar: 'https://i.pravatar.cc/150?img=6' },
-    { id: 7, name: 'Наталья Морозова', position: 'Full-stack Developer, WebStudio', avatar: 'https://i.pravatar.cc/150?img=7' },
-    { id: 8, name: 'Игорь Волков', position: 'Mobile Developer, AppFactory', avatar: 'https://i.pravatar.cc/150?img=8' }
+    { id: 1, name: 'Александр Волков', position: 'AI Research Lead, DeepMind', avatar: 'https://randomuser.me/api/portraits/men/32.jpg' },
+    { id: 2, name: 'Мария Соколова', position: 'Product Director, TechVision', avatar: 'https://randomuser.me/api/portraits/women/44.jpg' },
+    { id: 3, name: 'Илья Морозов', position: 'Blockchain Developer, CryptoLab', avatar: 'https://randomuser.me/api/portraits/men/68.jpg' },
+    { id: 4, name: 'Екатерина Ковалева', position: 'UX/UI Lead, DesignForce', avatar: 'https://randomuser.me/api/portraits/women/65.jpg' },
+    { id: 5, name: 'Сергей Игнатов', position: 'CTO, InnovaTech', avatar: 'https://randomuser.me/api/portraits/men/41.jpg' },
+    { id: 6, name: 'Анастасия Орлова', position: 'Frontend Architect, WebPioneer', avatar: 'https://randomuser.me/api/portraits/women/33.jpg' },
+    { id: 7, name: 'Павел Дмитриев', position: 'DevOps Lead, CloudMasters', avatar: 'https://randomuser.me/api/portraits/men/22.jpg' },
+    { id: 8, name: 'Ольга Зайцева', position: 'Mobile Dev Expert, AppCraft', avatar: 'https://randomuser.me/api/portraits/women/28.jpg' },
+    { id: 9, name: 'Артём Соловьёв', position: 'ML Engineer, AILabs', avatar: 'https://randomuser.me/api/portraits/men/18.jpg' },
+    { id: 10, name: 'Ирина Белова', position: 'Security Specialist, SecureNet', avatar: 'https://randomuser.me/api/portraits/women/17.jpg' },
+    { id: 11, name: 'Владимир Козлов', position: 'Backend Developer, DataSystems', avatar: 'https://randomuser.me/api/portraits/men/55.jpg' },
+    { id: 12, name: 'Наталья Романова', position: 'Data Scientist, AnalyticsPro', avatar: 'https://randomuser.me/api/portraits/women/8.jpg' }
   ]
 
   // Celebrities database
   const celebritiesDatabase = [
-    { id: 1, name: 'Сергей Бурунов', type: 'actor', avatar: 'https://i.pravatar.cc/150?img=11' },
-    { id: 2, name: 'Ирина Горбачева', type: 'actress', avatar: 'https://i.pravatar.cc/150?img=12' },
-    { id: 3, name: 'Федор Бондарчук', type: 'director', avatar: 'https://i.pravatar.cc/150?img=13' },
-    { id: 4, name: 'Алексей Пивоваров', type: 'journalist', avatar: 'https://i.pravatar.cc/150?img=14' },
-    { id: 5, name: 'Михаил Галустян', type: 'comedian', avatar: 'https://i.pravatar.cc/150?img=15' }
+    { id: 1, name: 'Тимур Бекмамбетов', type: 'режиссер', avatar: 'https://randomuser.me/api/portraits/men/71.jpg' },
+    { id: 2, name: 'Ксения Собчак', type: 'телеведущая', avatar: 'https://randomuser.me/api/portraits/women/79.jpg' },
+    { id: 3, name: 'Илон Маск', type: 'предприниматель', avatar: 'https://randomuser.me/api/portraits/men/44.jpg' },
+    { id: 4, name: 'Настя Ивлеева', type: 'блогер', avatar: 'https://randomuser.me/api/portraits/women/91.jpg' },
+    { id: 5, name: 'Павел Дуров', type: 'IT-предприниматель', avatar: 'https://randomuser.me/api/portraits/men/9.jpg' },
+    { id: 6, name: 'Юрий Дудь', type: 'журналист', avatar: 'https://randomuser.me/api/portraits/men/36.jpg' },
+    { id: 7, name: 'Ольга Бузова', type: 'певица', avatar: 'https://randomuser.me/api/portraits/women/62.jpg' },
+    { id: 8, name: 'Хабиб Нурмагомедов', type: 'спортсмен', avatar: 'https://randomuser.me/api/portraits/men/81.jpg' }
   ]
 
   // Organizers database
   const organizersDatabase = [
     'Event SpheRRe',
-    'ТехноСфера',
-    'АртГалерея',
-    'МузыкаПлюс',
-    'Научный Центр',
-    'GameDev Сообщество',
-    'Спорт-Ивент'
+    'DigitalHorizon',
+    'TechConnect',
+    'NextGen Events',
+    'FutureVision',
+    'InnovateNow',
+    'CreativeMinds',
+    'ArtSpace Gallery',
+    'CyberSummit',
+    'Web3 Community',
+    'AI Consortium',
+    'MusicWave',
+    'SciTech Hub'
   ]
 
   const newEvents = []
-  for (let i = 0; i < 15; i++) {
+  for (let i = 0; i < 25; i++) {
     const randomDate = new Date()
     randomDate.setDate(randomDate.getDate() + Math.floor(Math.random() * 30))
     randomDate.setHours(Math.floor(Math.random() * 12) + 9, Math.floor(Math.random() * 60))
@@ -254,9 +299,9 @@ function generateEvents() {
     const description = descriptions[Math.floor(Math.random() * descriptions.length)]
     const organizer = organizersDatabase[Math.floor(Math.random() * organizersDatabase.length)]
 
-    // Randomly assign speakers (between 1-4)
+    // Randomly assign speakers (between 2-5)
     const speakers = []
-    const speakerCount = Math.floor(Math.random() * 4) + 1
+    const speakerCount = Math.floor(Math.random() * 4) + 2
     const shuffledSpeakers = [...speakersDatabase].sort(() => 0.5 - Math.random())
     for (let j = 0; j < speakerCount; j++) {
       if (shuffledSpeakers[j]) {
@@ -264,10 +309,10 @@ function generateEvents() {
       }
     }
 
-    // Randomly decide if event has celebrities (30% chance)
+    // Randomly decide if event has celebrities (45% chance)
     let celebrities = []
-    if (Math.random() < 0.3) {
-      const celebrityCount = Math.floor(Math.random() * 2) + 1
+    if (Math.random() < 0.45) {
+      const celebrityCount = Math.floor(Math.random() * 3) + 1
       const shuffledCelebrities = [...celebritiesDatabase].sort(() => 0.5 - Math.random())
       for (let j = 0; j < celebrityCount; j++) {
         if (shuffledCelebrities[j]) {
