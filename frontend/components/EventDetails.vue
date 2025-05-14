@@ -102,6 +102,54 @@
             <p class="text-sm opacity-80">{{ event.description || 'Описание отсутствует' }}</p>
           </div>
           
+          <!-- Personalities section: Speakers and Celebrities -->
+          <div v-if="hasPersonalities" class="mb-4">
+            <!-- Speakers -->
+            <div v-if="event.speakers && event.speakers.length" class="mb-3">
+              <h3 class="text-base font-medium mb-2">Спикеры</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <div v-for="speaker in event.speakers" :key="speaker.id" 
+                     :class="['flex items-center gap-2 p-2 rounded-lg', 
+                             isDarkMode ? 'bg-[#3A3A50]' : 'bg-gray-100']">
+                  <div class="flex-shrink-0">
+                    <img v-if="speaker.avatar" :src="speaker.avatar" alt="" class="h-10 w-10 object-cover rounded-full" />
+                    <div v-else class="h-10 w-10 bg-purple-600 flex items-center justify-center text-white font-bold rounded-full">
+                      {{ speaker.name.charAt(0) }}
+                    </div>
+                  </div>
+                  <div class="flex-1 overflow-hidden">
+                    <div class="font-medium text-sm">{{ speaker.name }}</div>
+                    <div class="text-xs opacity-70 truncate">{{ speaker.position }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Celebrities -->
+            <div v-if="event.celebrities && event.celebrities.length" class="mb-3">
+              <h3 class="text-base font-medium mb-2">Приглашенные гости</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <div v-for="celebrity in event.celebrities" :key="celebrity.id" 
+                     :class="['flex items-center gap-2 p-2 rounded-lg border-2 border-yellow-400', 
+                             isDarkMode ? 'bg-[#3A3A50]' : 'bg-gray-100']">
+                  <div class="flex-shrink-0">
+                    <img v-if="celebrity.avatar" :src="celebrity.avatar" alt="" class="h-10 w-10 object-cover rounded-full" />
+                    <div v-else class="h-10 w-10 bg-yellow-500 flex items-center justify-center text-white font-bold rounded-full">
+                      {{ celebrity.name.charAt(0) }}
+                    </div>
+                  </div>
+                  <div class="flex-1">
+                    <div class="font-medium text-sm">{{ celebrity.name }}</div>
+                    <div class="text-xs opacity-70">{{ celebrity.type }}</div>
+                  </div>
+                  <div class="flex-shrink-0">
+                    <span class="text-xs px-1.5 py-0.5 bg-yellow-400 text-yellow-900 rounded-sm font-medium">VIP</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
           <!-- Tags -->
           <div v-if="event.tags && event.tags.length" class="mb-4">
             <h3 class="text-base font-medium mb-2">Теги</h3>
@@ -540,6 +588,12 @@ function formatPrice(price) {
   if (price === 0) return 'Бесплатно'
   return `${price.toLocaleString('ru-RU')} ₽`
 }
+
+const hasPersonalities = computed(() => {
+  return (props.event?.speakers && props.event.speakers.length > 0) || 
+         (props.event?.celebrities && props.event.celebrities.length > 0) || 
+         (props.event?.organizer);
+});
 </script>
 
 <style scoped>

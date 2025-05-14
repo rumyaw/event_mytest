@@ -207,6 +207,38 @@ function generateEvents() {
     'Интерактивный мастер-класс с опытными спикерами и практическими упражнениями.'
   ]
 
+  // Speakers database
+  const speakersDatabase = [
+    { id: 1, name: 'Анна Иванова', position: 'Senior Developer, TechCorp', avatar: 'https://i.pravatar.cc/150?img=1' },
+    { id: 2, name: 'Дмитрий Петров', position: 'CTO, Startup Inc', avatar: 'https://i.pravatar.cc/150?img=2' },
+    { id: 3, name: 'Елена Смирнова', position: 'UX Designer, DesignLab', avatar: 'https://i.pravatar.cc/150?img=3' },
+    { id: 4, name: 'Максим Козлов', position: 'AI Researcher, DataScience', avatar: 'https://i.pravatar.cc/150?img=4' },
+    { id: 5, name: 'Ольга Новикова', position: 'Product Manager, ProductHouse', avatar: 'https://i.pravatar.cc/150?img=5' },
+    { id: 6, name: 'Артем Соколов', position: 'DevOps Engineer, CloudSolutions', avatar: 'https://i.pravatar.cc/150?img=6' },
+    { id: 7, name: 'Наталья Морозова', position: 'Full-stack Developer, WebStudio', avatar: 'https://i.pravatar.cc/150?img=7' },
+    { id: 8, name: 'Игорь Волков', position: 'Mobile Developer, AppFactory', avatar: 'https://i.pravatar.cc/150?img=8' }
+  ]
+
+  // Celebrities database
+  const celebritiesDatabase = [
+    { id: 1, name: 'Сергей Бурунов', type: 'actor', avatar: 'https://i.pravatar.cc/150?img=11' },
+    { id: 2, name: 'Ирина Горбачева', type: 'actress', avatar: 'https://i.pravatar.cc/150?img=12' },
+    { id: 3, name: 'Федор Бондарчук', type: 'director', avatar: 'https://i.pravatar.cc/150?img=13' },
+    { id: 4, name: 'Алексей Пивоваров', type: 'journalist', avatar: 'https://i.pravatar.cc/150?img=14' },
+    { id: 5, name: 'Михаил Галустян', type: 'comedian', avatar: 'https://i.pravatar.cc/150?img=15' }
+  ]
+
+  // Organizers database
+  const organizersDatabase = [
+    'Event SpheRRe',
+    'ТехноСфера',
+    'АртГалерея',
+    'МузыкаПлюс',
+    'Научный Центр',
+    'GameDev Сообщество',
+    'Спорт-Ивент'
+  ]
+
   const newEvents = []
   for (let i = 0; i < 15; i++) {
     const randomDate = new Date()
@@ -220,6 +252,29 @@ function generateEvents() {
     const location = locations[Math.floor(Math.random() * locations.length)]
     const title = titles[Math.floor(Math.random() * titles.length)]
     const description = descriptions[Math.floor(Math.random() * descriptions.length)]
+    const organizer = organizersDatabase[Math.floor(Math.random() * organizersDatabase.length)]
+
+    // Randomly assign speakers (between 1-4)
+    const speakers = []
+    const speakerCount = Math.floor(Math.random() * 4) + 1
+    const shuffledSpeakers = [...speakersDatabase].sort(() => 0.5 - Math.random())
+    for (let j = 0; j < speakerCount; j++) {
+      if (shuffledSpeakers[j]) {
+        speakers.push(shuffledSpeakers[j])
+      }
+    }
+
+    // Randomly decide if event has celebrities (30% chance)
+    let celebrities = []
+    if (Math.random() < 0.3) {
+      const celebrityCount = Math.floor(Math.random() * 2) + 1
+      const shuffledCelebrities = [...celebritiesDatabase].sort(() => 0.5 - Math.random())
+      for (let j = 0; j < celebrityCount; j++) {
+        if (shuffledCelebrities[j]) {
+          celebrities.push(shuffledCelebrities[j])
+        }
+      }
+    }
 
     newEvents.push({
       id: i + 1,
@@ -231,8 +286,10 @@ function generateEvents() {
       tags: eventTags,
       location,
       description,
-      organizer: 'Event SpheRRe',
-      price: Math.floor(Math.random() * 500) * 10
+      organizer,
+      price: Math.floor(Math.random() * 500) * 10,
+      speakers,
+      celebrities
     })
   }
   

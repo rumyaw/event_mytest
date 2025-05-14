@@ -15,6 +15,46 @@
         
         <p v-if="event.description" class="text-sm mt-2 line-clamp-2">{{ event.description }}</p>
         
+        <!-- Personalities section -->
+        <div v-if="hasPersonalities" class="mt-3 border-t border-purple-500 border-opacity-20 pt-2">
+            <div class="flex items-center flex-wrap gap-2">
+                <!-- Speakers -->
+                <div v-if="event.speakers && event.speakers.length" class="flex items-center">
+                    <span class="text-xs mr-1 opacity-70">Спикеры:</span>
+                    <div class="flex -space-x-2 overflow-hidden">
+                        <div v-for="(speaker, index) in event.speakers.slice(0, 3)" :key="index" 
+                             class="inline-flex overflow-hidden rounded-full border-2" 
+                             :class="isDarkMode ? 'border-gray-800' : 'border-white'"
+                             :title="speaker.name">
+                            <img v-if="speaker.avatar" :src="speaker.avatar" alt="" class="h-6 w-6 object-cover" />
+                            <div v-else class="h-6 w-6 bg-purple-600 flex items-center justify-center text-white text-xs font-bold">
+                                {{ speaker.name.charAt(0) }}
+                            </div>
+                        </div>
+                        <div v-if="event.speakers.length > 3" 
+                             class="inline-flex h-6 w-6 items-center justify-center rounded-full border-2 bg-gray-700 text-xs font-bold text-white"
+                             :class="isDarkMode ? 'border-gray-800' : 'border-white'">
+                            +{{ event.speakers.length - 3 }}
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Celebrities -->
+                <div v-if="event.celebrities && event.celebrities.length" class="flex items-center">
+                    <span class="text-xs font-medium bg-yellow-400 text-yellow-900 px-1.5 py-0.5 rounded-sm">
+                        <span v-if="event.celebrities.length === 1">{{ event.celebrities[0].name }}</span>
+                        <span v-else>{{ event.celebrities.length }} известных гостей</span>
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Organizer -->
+            <div v-if="event.organizer" class="mt-1 text-xs flex items-center">
+                <span class="opacity-70 mr-1">Организатор:</span>
+                <span class="font-medium">{{ event.organizer }}</span>
+            </div>
+        </div>
+        
         <div class="mt-3 flex justify-between items-center">
             <div class="flex gap-2 flex-wrap">
                 <span v-for="tag in event.tags" :key="tag" 
@@ -89,6 +129,12 @@ const categoryClass = computed(() => {
     };
     
     return categories[props.event.category] || categories.default;
+});
+
+const hasPersonalities = computed(() => {
+    return (props.event.speakers && props.event.speakers.length > 0) || 
+           (props.event.celebrities && props.event.celebrities.length > 0) || 
+           (props.event.organizer);
 });
 
 function formatDate(dateString) {

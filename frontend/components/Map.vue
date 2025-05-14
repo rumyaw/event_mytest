@@ -17,7 +17,7 @@
           v-for="event in events" 
           :key="event.id" 
           :lat-lng="[event.lat, event.lng]" 
-          :icon="getIcon(event.id === hoveredEventId || event.id === selectedEventId)" 
+          :icon="getMarkerIcon(event)" 
           @click="onMarkerClick(event.id)"
           @mouseover="hoveredEventId = event.id" 
           @mouseout="hoveredEventId = null"
@@ -50,6 +50,24 @@ const redIcon = new L.Icon({
   shadowSize: [41, 41],
 });
 
+const goldIcon = new L.Icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
+
+const violetIcon = new L.Icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-violet.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
+
 const props = defineProps({
   events: { type: Array, required: true },
   selectedEventId: { type: Number, default: null },
@@ -71,7 +89,15 @@ const maxBounds = [
   [82.0586232, 180]       // Северный угол карты
 ];
 
-const getIcon = (isHighlighted) => isHighlighted ? redIcon : greenIcon;
+const getMarkerIcon = (event) => {
+  // Highlight events with celebrities with gold icon
+  if (event.celebrities && event.celebrities.length > 0) {
+    return (event.id === hoveredEventId.value || event.id === props.selectedEventId) ? violetIcon : goldIcon;
+  }
+  
+  // Standard highlighting for hover/selected
+  return (event.id === hoveredEventId.value || event.id === props.selectedEventId) ? redIcon : greenIcon;
+};
 
 // Click handler for actual selection of event
 const onMarkerClick = (id) => {
