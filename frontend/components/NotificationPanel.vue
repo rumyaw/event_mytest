@@ -180,7 +180,7 @@
     </div>
     
     <!-- Toggle button -->
-    <button 
+    <!-- <button 
       @click="togglePanel"
       :class="['absolute -left-12 p-2 rounded-l-lg shadow-lg transition-colors',
               isDarkMode ? 'bg-gray-800 hover:bg-gray-700' : 'bg-white hover:bg-gray-100',
@@ -197,7 +197,7 @@
           {{ unreadCount > 9 ? '9+' : unreadCount }}
         </div>
       </div>
-    </button>
+    </button> -->
   </div>
 </template>
 
@@ -205,7 +205,6 @@
 import { ref, computed, onMounted } from 'vue';
 
 // State
-const isOpen = ref(false);
 const activeTab = ref('all');
 const notifications = ref([]);
 const subscriptions = ref([]);
@@ -215,7 +214,7 @@ const notificationsEnabled = ref(true);
 
 // Props and emit
 const props = defineProps({
-  initialOpen: {
+  show: {
     type: Boolean,
     default: false
   }
@@ -228,6 +227,8 @@ const theme = useState('theme', () => 'dark');
 const isDarkMode = computed(() => theme.value === 'dark');
 
 // Computed
+const isOpen = computed(() => props.show);
+
 const filteredNotifications = computed(() => {
   if (activeTab.value === 'unread') {
     return notifications.value.filter(notification => !notification.read);
@@ -240,12 +241,7 @@ const unreadCount = computed(() => {
 });
 
 // Methods
-function togglePanel() {
-  isOpen.value = !isOpen.value;
-}
-
 function closePanel() {
-  isOpen.value = false;
   emits('close');
 }
 
@@ -350,8 +346,6 @@ function addNotification(notification) {
 
 // Init
 onMounted(() => {
-  isOpen.value = props.initialOpen;
-  
   // Mock data
   mockData();
 });

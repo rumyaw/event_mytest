@@ -36,6 +36,7 @@
           @close="showNotifications = false"
         />
       </div>
+      
       <div class="relative">
         <button @click="toggleFriends" class="nav-btn">
         <svg class="h-5 w-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -46,6 +47,20 @@
         <FriendsPanel 
           :show="showFriends" 
           @close="showFriends = false"
+        />
+      </div>
+      
+      <!-- Recommendations button - only shown for authenticated users -->
+      <div class="relative" v-if="isAuthenticated">
+        <button @click="toggleRecommendations" class="nav-btn relative">
+        <svg class="h-5 w-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+          Рекомендации
+        </button>
+        <RecommendationsPanel 
+          :show="showRecommendations" 
+          @close="showRecommendations = false"
         />
       </div>
       <button class="nav-btn logout-btn">
@@ -102,6 +117,7 @@
           @close="showNotifications = false"
         />
       </div>
+      
       <div class="relative">
         <button @click="toggleFriends" class="nav-btn">
         <svg class="h-5 w-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -112,6 +128,20 @@
         <FriendsPanel 
           :show="showFriends" 
           @close="showFriends = false"
+        />
+      </div>
+      
+      <!-- Recommendations button - only shown for authenticated users -->
+      <div class="relative" v-if="isAuthenticated">
+        <button @click="toggleRecommendations" class="nav-btn relative">
+        <svg class="h-5 w-5 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+          Рекомендации
+        </button>
+        <RecommendationsPanel 
+          :show="showRecommendations" 
+          @close="showRecommendations = false"
         />
       </div>
       <button class="nav-btn logout-btn">
@@ -133,19 +163,38 @@
 
 <script setup>
 import NotificationPanel from './NotificationPanel.vue'
+import RecommendationsPanel from './RecommendationsPanel.vue'
 import FriendsPanel from './FriendsPanel.vue'
 import { ref, computed } from 'vue'
 const showNotifications = ref(false)
+const showRecommendations = ref(false)
 const showFriends = ref(false)
+
+// For demo purposes, let's assume user is authenticated
+const isAuthenticated = ref(true)
 
 const toggleNotifications = () => {
   showNotifications.value = !showNotifications.value
-  if (showNotifications.value) showFriends.value = false
+  if (showNotifications.value) {
+    showFriends.value = false
+    showRecommendations.value = false
+  }
+}
+
+const toggleRecommendations = () => {
+  showRecommendations.value = !showRecommendations.value
+  if (showRecommendations.value) {
+    showFriends.value = false
+    showNotifications.value = false
+  }
 }
 
 const toggleFriends = () => {
   showFriends.value = !showFriends.value
-  if (showFriends.value) showNotifications.value = false
+  if (showFriends.value) {
+    showRecommendations.value = false
+    showNotifications.value = false
+  }
 }
 
 const theme = useState('theme')
