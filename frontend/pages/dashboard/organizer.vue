@@ -31,12 +31,23 @@
             <h2 class="text-xl font-semibold">{{ user ? user.name : '' }}</h2>
             <p class="text-opacity-80">{{ user ? user.email : '' }}</p>
             <p class="text-opacity-80 capitalize">{{ user ? user.role : '' }}</p>
-            <button
-              @click="logout"
-              class="mt-4 px-4 py-2 action-btn rounded-lg transition-colors duration-300"
-            >
-              Выйти
-            </button>
+            <div class="flex gap-3 mt-4">
+              <button
+                @click="goToStatistics"
+                class="px-4 py-2 bg-purple-600 text-white rounded-lg transition-colors duration-300 hover:bg-purple-700 flex items-center gap-2"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+                Статистика
+              </button>
+              <button
+                @click="logout"
+                class="px-4 py-2 action-btn rounded-lg transition-colors duration-300"
+              >
+                Выйти
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -288,6 +299,10 @@ function randomFallingStarStyle() {
     animationDuration: `${duration}s`,
     animationDelay: `${Math.random() * 3}s`
   }
+}
+
+function goToStatistics() {
+  navigateTo('/statistics')
 }
 
 // Computed
