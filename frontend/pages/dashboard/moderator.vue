@@ -232,6 +232,76 @@ const theme = useState('theme');
 const isDarkMode = computed(() => theme.value === 'dark');
 const activeTab = ref('participating');
 
+// Добавляем тестовые данные мероприятий для модератора
+events.value = [
+  {
+    id: 1,
+    title: 'Конференция Data Science Forum 2023',
+    date: '15.07.2023',
+    time: '10:00',
+    description: 'Международный форум по анализу данных, машинному обучению и искусственному интеллекту с участием ведущих экспертов отрасли.',
+    status: 'participating',
+    tags: 'Data Science, ML, Аналитика',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+    rating: 4.8
+  },
+  {
+    id: 2,
+    title: 'Научная конференция "Квантовые технологии 2023"',
+    date: '25.07.2023',
+    time: '14:00',
+    description: 'Конференция посвященная последним достижениям в области квантовых вычислений, квантовой криптографии и квантовых коммуникаций.',
+    status: 'participating',
+    tags: 'Квантовая физика, Вычисления, Наука',
+    image: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+    rating: 4.9
+  },
+  {
+    id: 3,
+    title: 'Хакатон "AI Health Challenge"',
+    date: '10.07.2023',
+    time: '09:00',
+    description: 'Хакатон по разработке AI-решений для здравоохранения. Команды разрабатывают проекты для диагностики, мониторинга и улучшения медицинских услуг.',
+    status: 'upcoming',
+    tags: 'AI, Здравоохранение, Разработка',
+    image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+    rating: 4.7
+  },
+  {
+    id: 4,
+    title: 'Научно-технический симпозиум по робототехнике',
+    date: '05.08.2023',
+    time: '11:00',
+    description: 'Международный симпозиум, посвященный передовым исследованиям в области робототехники, автономных систем и искусственного интеллекта.',
+    status: 'upcoming',
+    tags: 'Робототехника, AI, Наука',
+    image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+    rating: 4.6
+  },
+  {
+    id: 5,
+    title: 'Форум по кибербезопасности CyberSecure 2023',
+    date: '20.04.2023',
+    time: '13:00',
+    description: 'Масштабный форум, посвященный вопросам кибербезопасности, защиты данных и противодействию современным киберугрозам.',
+    status: 'participated',
+    tags: 'Безопасность, IT, Хакинг',
+    image: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+    rating: 4.9
+  },
+  {
+    id: 6,
+    title: 'Международная конференция Frontiers of Science',
+    date: '15.03.2023',
+    time: '09:30',
+    description: 'Престижная научная конференция, на которой представлены исследования в передовых областях науки, включая нейробиологию, генетику и квантовую физику.',
+    status: 'participated',
+    tags: 'Передовая наука, Исследования, Инновации',
+    image: 'https://images.unsplash.com/photo-1507413245164-6160d8298b31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+    rating: 4.8
+  }
+];
+
 const reports = [
   { id: 1, userInitials: 'ИВ', userName: 'Иван Васильев', time: '10 минут назад', reason: 'Неприемлемый контент в описании мероприятия' },
   { id: 2, userInitials: 'АП', userName: 'Анна Петрова', time: '1 час назад', reason: 'Спам в комментариях' },

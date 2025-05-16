@@ -68,8 +68,7 @@
               <div
                 v-for="event in filteredEvents"
                 :key="event.id"
-                class="p-4 rounded-xl event-card shadow-md cursor-pointer hover:shadow-lg transition-all duration-300 group"
-                @click="goToEvent(event.id)"
+                class="p-4 rounded-xl event-card shadow-md hover:shadow-lg transition-all duration-300 group"
               >
                 <div class="flex justify-between items-start mb-2">
                   <h3 class="text-lg font-bold">{{ event.title }}</h3>
@@ -205,7 +204,7 @@ const error = ref(null);
 const events = ref([]);
 const theme = useState('theme');
 const isDarkMode = computed(() => theme.value === 'dark');
-const activeTab = ref('participating');
+const activeTab = ref('upcoming');
 
 // Форма для нового мероприятия
 const newEvent = ref({
@@ -227,6 +226,76 @@ const tagColors = [
   'bg-purple-500/20 text-purple-500',
   'bg-green-500/20 text-green-500',
   'bg-yellow-500/20 text-yellow-500'
+];
+
+// Тестовые данные мероприятий
+events.value = [
+  {
+    id: 1,
+    title: 'Конференция DevOps Days 2023',
+    date: '15.07.2023',
+    time: '18:00',
+    description: 'Международная конференция для DevOps-инженеров и специалистов по автоматизации. Обмен опытом, лучшие практики и новые инструменты.',
+    status: 'upcoming',
+    tags: 'DevOps, IT, Конференция',
+    image: 'https://images.unsplash.com/photo-1591115765373-5207764f72e4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+    rating: 4.8
+  },
+  {
+    id: 2,
+    title: 'Курс по глубокому обучению и нейросетям',
+    date: '25.07.2023',
+    time: '12:00',
+    description: 'Интенсивный курс по архитектурам нейронных сетей, технологиям глубокого обучения и практическому применению в различных областях.',
+    status: 'upcoming',
+    tags: 'Deep Learning, Нейросети, ML',
+    image: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+    rating: 4.9
+  },
+  {
+    id: 3,
+    title: 'Симпозиум по квантовой физике',
+    date: '10.06.2023',
+    time: '09:00',
+    description: 'Научный симпозиум, посвященный последним открытиям в квантовой физике и их применению в технологиях будущего.',
+    status: 'current',
+    tags: 'Квантовая физика, Наука, Исследования',
+    image: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+    rating: 4.7
+  },
+  {
+    id: 4,
+    title: 'Выставка инновационных технологий "FutureTech"',
+    date: '05.05.2023',
+    time: '10:00',
+    description: 'Выставка передовых технологий, робототехники, VR/AR решений и прототипов устройств будущего от ведущих лабораторий и стартапов.',
+    status: 'participated',
+    tags: 'Технологии, Инновации, Робототехника',
+    image: 'https://images.unsplash.com/photo-1512756290469-ec264b7fbf87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1453&q=80',
+    rating: 4.6
+  },
+  {
+    id: 5,
+    title: 'Форум по кибербезопасности CyberSecure 2023',
+    date: '20.04.2023',
+    time: '11:00',
+    description: 'Масштабный форум, посвященный вопросам кибербезопасности, защиты данных и противодействию современным киберугрозам.',
+    status: 'participated',
+    tags: 'Безопасность, IT, Хакинг',
+    image: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+    rating: 4.9
+  },
+  {
+    id: 6,
+    title: 'Конференция по биоинформатике и геномике',
+    date: '15.03.2023',
+    time: '09:30',
+    description: 'Междисциплинарная конференция на стыке биологии и информатики, посвященная анализу геномных данных и вычислительной биологии.',
+    status: 'participated',
+    tags: 'Биоинформатика, Наука, Big Data',
+    image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+    rating: 4.8
+  }
 ];
 
 onMounted(async () => {
@@ -261,15 +330,7 @@ function logout() {
   navigateTo('/login')
 }
 
-function toggleTheme() {
-  theme.value = isDarkMode.value ? 'light' : 'dark'
-}
-
-function goToEvent(id) {
-  navigateTo(`/event/${id}`)
-}
-
-function onFileChange(e) {
+function toggleTheme() {  theme.value = isDarkMode.value ? 'light' : 'dark'}function onFileChange(e) {
   newEvent.value.image = e.target.files[0]
 }
 

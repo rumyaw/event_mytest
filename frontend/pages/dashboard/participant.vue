@@ -93,8 +93,7 @@
               <div
                 v-for="event in filteredEvents"
                 :key="event.id"
-                class="p-4 rounded-xl event-card shadow-md cursor-pointer hover:shadow-lg transition-all duration-300 group"
-                @click="goToEvent(event.id)"
+                class="p-4 rounded-xl event-card shadow-md hover:shadow-lg transition-all duration-300 group"
               >
                 <div class="relative h-40 rounded-lg overflow-hidden mb-3">
                   <img 
@@ -231,9 +230,79 @@ const currentDay = 15;
 
 // Для друзей
 const friendActivities = [
-  { id: 1, initials: 'АС', name: 'Андрей Смирнов', action: 'посетил событие "Техно-фестиваль"', time: '2 часа назад' },
-  { id: 2, initials: 'ЕК', name: 'Елена Козлова', action: 'создала новое мероприятие', time: 'вчера' },
+  { id: 1, initials: 'АС', name: 'Андрей Смирнов', action: 'посетил событие "Конференция по квантовым вычислениям"', time: '2 часа назад' },
+  { id: 2, initials: 'ЕК', name: 'Елена Козлова', action: 'зарегистрировалась на "AI Summit 2023"', time: 'вчера' },
   { id: 3, initials: 'ИП', name: 'Игорь Петров', action: 'добавил вас в друзья', time: '3 дня назад' },
+];
+
+// Тестовые данные мероприятий для участника
+events.value = [
+  {
+    id: 1,
+    title: 'Конференция по искусственному интеллекту',
+    date: '15.07.2023',
+    time: '18:00',
+    description: 'Международная конференция с участием ведущих экспертов в области ИИ. Доклады, дискуссии и презентации новейших разработок.',
+    status: 'upcoming',
+    tags: 'IT, AI, Наука',
+    image: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+    rating: 4.8
+  },
+  {
+    id: 2,
+    title: 'Хакатон по машинному обучению',
+    date: '05.07.2023',
+    time: '15:00',
+    description: '48-часовой марафон программирования для разработки инновационных решений с использованием алгоритмов машинного обучения.',
+    status: 'upcoming',
+    tags: 'ML, Программирование, Хакатон',
+    image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+    rating: 4.7
+  },
+  {
+    id: 3,
+    title: 'Семинар по кибербезопасности',
+    date: '20.06.2023',
+    time: '10:00',
+    description: 'Практический семинар по современным методам защиты информации и противодействию киберугрозам.',
+    status: 'participating',
+    tags: 'Безопасность, IT, Обучение',
+    image: 'https://images.unsplash.com/photo-1614064641938-3bbee52942c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+    rating: 4.5
+  },
+  {
+    id: 4,
+    title: 'Воркшоп по блокчейну и криптовалютам',
+    date: '23.06.2023',
+    time: '14:00',
+    description: 'Интерактивный воркшоп по принципам работы блокчейна и перспективам развития криптовалют.',
+    status: 'participating',
+    tags: 'Блокчейн, Финтех, IT',
+    image: 'https://images.unsplash.com/photo-1516245834210-c4c142787335?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80',
+    rating: 4.6
+  },
+  {
+    id: 5,
+    title: 'Лекция по астрофизике и космологии',
+    date: '12.05.2023',
+    time: '19:00',
+    description: 'Увлекательная лекция о современных исследованиях в области астрофизики, черных дырах и теории многомерной вселенной.',
+    status: 'participated',
+    tags: 'Наука, Космос, Физика',
+    image: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1511&q=80',
+    rating: 4.9
+  },
+  {
+    id: 6,
+    title: 'Симпозиум по квантовым вычислениям',
+    date: '25.04.2023',
+    time: '11:00',
+    description: 'Научный симпозиум, посвященный последним достижениям в области квантовых вычислений и квантовой информатики.',
+    status: 'participated',
+    tags: 'Квантовая физика, IT, Наука',
+    image: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+    rating: 4.6
+  }
 ];
 
 onMounted(async () => {
@@ -261,10 +330,6 @@ function logout() {
 
 function toggleTheme() {
   theme.value = isDarkMode.value ? 'light' : 'dark'
-}
-
-function goToEvent(id) {
-  navigateTo(`/event/${id}`)
 }
 
 function randomFallingStarStyle() {
