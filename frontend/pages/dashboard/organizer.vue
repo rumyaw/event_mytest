@@ -330,7 +330,9 @@ function logout() {
   navigateTo('/login')
 }
 
-function toggleTheme() {  theme.value = isDarkMode.value ? 'light' : 'dark'}function onFileChange(e) {
+function toggleTheme() {  theme.value = isDarkMode.value ? 'light' : 'dark'}
+
+function onFileChange(e) {
   newEvent.value.image = e.target.files[0]
 }
 
